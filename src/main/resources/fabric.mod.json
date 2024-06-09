@@ -1,0 +1,44 @@
+{
+	"schemaVersion": 1,
+	"id": "yolbi4",
+	"version": "${version}",
+	"name": "YolBi4",
+	"description": "YolBi For The Minecraft height version",
+	"authors": [
+		"yuxiangll",
+		"Timer"
+	],
+	"contact": {
+		"homepage": "https://yapeteam.github.io"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/yolbi4/YolBilogo.png",
+	"environment": "client",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "today.yapeteam.YolBi4",
+				"adapter": "kotlin"
+			}
+		],
+		"fabric-datagen": [
+			{
+				"value": "today.yapeteam.YolBi4DataGenerator",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"yolbi4.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.6",
+		"java": ">=21",
+		"fabric-api": "*",
+		"fabric-language-kotlin": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

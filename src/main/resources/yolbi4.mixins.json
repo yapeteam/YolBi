@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "today.yapeteam.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "MixinIngameHud",
+    "MixinKeyboard",
+    "MixinKeyboardInput",
+    "MixinMinecraftClient",
+    "accesors.IShaderProgram"
+  ]
+}
