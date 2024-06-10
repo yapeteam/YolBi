@@ -12,6 +12,7 @@ abstract class Module(val name: String, val category: Category) : IMinecraftClie
 
     private var enable: Boolean = false
     var prefix: String = ""
+    private val settings: MutableList<Settings<Any>> = mutableListOf()
 
     open fun onEnable() {
 
@@ -19,6 +20,14 @@ abstract class Module(val name: String, val category: Category) : IMinecraftClie
 
     open fun onDisable(){
 
+    }
+
+    fun addSetting(setting: Settings<Any>) {
+        settings.add(setting)
+    }
+
+    fun addSetting(setting: MutableList<Settings<Any>>) {
+        settings.addAll(setting)
     }
 
     fun toggle(){

@@ -4,7 +4,6 @@ import meteordevelopment.orbit.EventHandler
 import today.yapeteam.YolBi4
 import today.yapeteam.event.EventKeyPress
 import today.yapeteam.event.EventKeyRelease
-import today.yapeteam.font.FontRenderers
 import today.yapeteam.module.imp.render.HUD
 import today.yapeteam.module.imp.render.RenderTest
 

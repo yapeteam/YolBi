@@ -24,8 +24,8 @@ object HUD : Module("HUD",Category.RENDER) {
     fun onRender(event: EventRender2D){
         val font = YolBi4.fontManager.pingFang16
         YolBi4.moduleManager.modules.forEachIndexed { index, module ->
-            font.drawString(event.context.matrices, module.name, 2F, 10F + index * 10, -1,true)
-            if (module.prefix.isNotEmpty()) font.drawString(event.context.matrices, "[${module.prefix}]", 2F + font.getStringWidth(module.name) + 2, 10F + index * 10, Color(100,100,100).rgb,true)
+            font.drawString(event.context.matrices, module.name, 2F, 10F + index * 10, -1)
+            if (module.prefix.isNotEmpty()) font.drawString(event.context.matrices, "[${module.prefix}]", 2F + font.getStringWidth(module.name) + 2, 10F + index * 10, Color(100,100,100).rgb)
         }
     }
 
