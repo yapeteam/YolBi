@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import today.yapeteam.YolBi4;
-import today.yapeteam.callback.WindowResizeCallback;
 import today.yapeteam.event.EventWindowsResize;
 
 
@@ -29,7 +28,6 @@ abstract public class MixinMinecraftClient {
     private void captureResize(CallbackInfo ci) {
         EventWindowsResize eventWindowsResize = new EventWindowsResize(window);
         YolBi4.INSTANCE.getEVENT_BUG().post(eventWindowsResize);
-        WindowResizeCallback.EVENT.invoker().onResized((MinecraftClient) (Object) this, this.window);
     }
 
     @Inject(method = "onFinishedLoading", at = @At("TAIL"))

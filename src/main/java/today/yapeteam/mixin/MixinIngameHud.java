@@ -23,6 +23,5 @@ public abstract class MixinIngameHud {
         YolBi4.INSTANCE.getEVENT_BUG().post(eventRender2D);
         if (eventRender2D.getCancelled()) callback.cancel();
 
-        //context.drawText(MinecraftClient.getInstance().textRenderer, "ABCDSACACSC",100,100,-1,true);
     }
 }

@@ -1,6 +1,7 @@
 package today.yapeteam.utils.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.GlUniform;
 import net.minecraft.client.gl.ShaderProgram;
 import net.minecraft.client.render.VertexFormat;
@@ -15,13 +16,13 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-//#SKIDDED
-public class GlProgram {
+public class GlProgram extends Framebuffer {
     private static final List<Pair<Function<ResourceFactory, ShaderProgram>, Consumer<ShaderProgram>>> REGISTERED_PROGRAMS = new ArrayList<>();
 
     public ShaderProgram backingProgram;
 
     public GlProgram(Identifier id, VertexFormat vertexFormat) {
+        super(true);
         REGISTERED_PROGRAMS.add(new Pair<>(resourceFactory -> {
             try {
                 return new Shader(resourceFactory, id.toString(), vertexFormat);
@@ -41,7 +42,7 @@ public class GlProgram {
     protected void setup() {}
 
     protected GlUniform findUniform(String name) {
-        return (GlUniform) ((IShaderProgram) backingProgram).getUniformsHook().get(name);
+        return ((IShaderProgram) backingProgram).getUniformsHook().get(name);
     }
 
     public static void forEachProgram(Consumer<Pair<Function<ResourceFactory, ShaderProgram>, Consumer<ShaderProgram>>> loader) {

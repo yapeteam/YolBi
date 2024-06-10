@@ -10,7 +10,7 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.Window;
 import net.minecraft.util.Identifier;
 import org.lwjgl.opengl.GL30;
-import today.yapeteam.callback.WindowResizeCallback;
+import today.yapeteam.YolBi4;
 
 public class GradientGlowShader extends GlProgram {
 
@@ -24,13 +24,18 @@ public class GradientGlowShader extends GlProgram {
     public GlUniform color4;
     public Framebuffer input;
 
+    @Override
+    public void resize(int width, int height, boolean getError) {
+        if (textureWidth != width || textureHeight != height) {
+            super.resize(width, height, getError);
+            if (this.input != null){
+                this.input.resize(YolBi4.INSTANCE.getMc().getWindow().getFramebufferWidth(), YolBi4.INSTANCE.getMc().getWindow().getFramebufferHeight(), MinecraftClient.IS_SYSTEM_MAC);
+            }
+        }
+    }
+
     public GradientGlowShader() {
         super(new Identifier("yolbi4", "gradientglow"), VertexFormats.POSITION);
-        //Prestige.Companion.getEventBus().registerListener(this);
-        WindowResizeCallback.EVENT.register((client, window) -> {
-            if (this.input == null) return;
-            this.input.resize(window.getFramebufferWidth(), window.getFramebufferHeight(), MinecraftClient.IS_SYSTEM_MAC);
-        });
     }
 
     public void setParameters(float f, float f2, float f3, float f4, float f5, float f6, Color color, Color color2, Color color3, Color color4) {
