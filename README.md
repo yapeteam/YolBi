@@ -9,6 +9,7 @@
 </div>
 
 YolBI for Fabric is an Minecraft hacked client with fabric API
+- HAHA you can see, this README is similar to Liquidbounce's
 
 ## License
 
