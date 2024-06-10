@@ -7,7 +7,6 @@ import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.util.Util
 import org.joml.Matrix4f
 import org.lwjgl.opengl.GL11
-import today.yapeteam.font.AlphaOverride.compute
 import java.awt.Font
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
@@ -19,9 +18,9 @@ import kotlin.math.pow
  * @since 2024/6/10 上午8:04
  * IntelliJ IDEA
  */
-class RendererFontAdapter(val font: Font, val size: Float) : FontAdapter {
+class RendererFontAdapter(font: Font, val size: Float) : FontAdapter {
 
-    val fontRenderer: FontRenderer = FontRenderer(font)
+    private val fontRenderer: FontRenderer = FontRenderer(font)
 
     override fun drawString(matrices: MatrixStack?, text: String?, x: Float, y: Float, color: Int) {
         var color1 = color
@@ -52,8 +51,7 @@ class RendererFontAdapter(val font: Font, val size: Float) : FontAdapter {
         if (text == null) throw Exception()
         if (matrices == null) throw Exception()
 
-        val v: Float = compute.invoke((a*255).toInt()) / 255;
-        fontRenderer.drawString(matrices, text, x, y, r, g, b, v)
+        fontRenderer.drawString(matrices, text, x, y, r, g, b, a)
     }
 
     override fun drawCenteredString(matrices: MatrixStack?, text: String?, x: Double, y: Double, color: Int) {
@@ -79,9 +77,7 @@ class RendererFontAdapter(val font: Font, val size: Float) : FontAdapter {
     ) {
         if (text == null) throw Exception()
         if (matrices == null) throw Exception()
-
-        val v: Float = compute.invoke((a*255).toInt()) / 255;
-        fontRenderer.drawCenteredString(matrices, text, x.toFloat(), y.toFloat(), r, g, b, v)
+        fontRenderer.drawCenteredString(matrices, text, x.toFloat(), y.toFloat(), r, g, b, a)
 
     }
 
@@ -252,13 +248,8 @@ class FontRenderer(private val f: Font){
         b: Float,
         a: Float
     ): Double {
-        val v = compute.invoke(a.toInt())
-        val glyph = glyphMap.computeIfAbsent(
-            c
-        ) { character: Char? ->
-            Glyph(
-                character!!, f!!
-            )
+        val glyph = glyphMap.computeIfAbsent(c) {
+            character: Char? -> Glyph(character!!, f)
         }
         RenderSystem.setShaderTexture(0, glyph.imageTex)
 
@@ -269,10 +260,10 @@ class FontRenderer(private val f: Font){
         val inOffsetY = glyph.offsetY / (height + 10)
 
         bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR)
-        bufferBuilder.vertex(matrix, 0f, height, 0f).texture(0 + inOffsetX, 1 - inOffsetY).color(r, g, b, v).next()
-        bufferBuilder.vertex(matrix, width, height, 0f).texture(1 - inOffsetX, 1 - inOffsetY).color(r, g, b, v).next()
-        bufferBuilder.vertex(matrix, width, 0f, 0f).texture(1 - inOffsetX, 0 + inOffsetY).color(r, g, b, v).next()
-        bufferBuilder.vertex(matrix, 0f, 0f, 0f).texture(0 + inOffsetX, 0 + inOffsetY).color(r, g, b, v).next()
+        bufferBuilder.vertex(matrix, 0f, height, 0f).texture(0 + inOffsetX, 1 - inOffsetY).color(r, g, b, a).next()
+        bufferBuilder.vertex(matrix, width, height, 0f).texture(1 - inOffsetX, 1 - inOffsetY).color(r, g, b, a).next()
+        bufferBuilder.vertex(matrix, width, 0f, 0f).texture(1 - inOffsetX, 0 + inOffsetY).color(r, g, b, a).next()
+        bufferBuilder.vertex(matrix, 0f, 0f, 0f).texture(0 + inOffsetX, 0 + inOffsetY).color(r, g, b, a).next()
         BufferRenderer.drawWithGlobalProgram(bufferBuilder.end())
 
         return width.toDouble()

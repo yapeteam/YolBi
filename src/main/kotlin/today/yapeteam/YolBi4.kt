@@ -4,7 +4,6 @@ import meteordevelopment.orbit.EventBus
 import net.fabricmc.api.ModInitializer
 import net.minecraft.client.MinecraftClient
 import org.slf4j.LoggerFactory
-import today.yapeteam.font.AlphaOverride
 import today.yapeteam.manager.FontManager
 import today.yapeteam.module.ModuleManager
 import java.lang.invoke.MethodHandles
@@ -30,7 +29,6 @@ object YolBi4 : ModInitializer {
 				MethodHandles.lookup()
 			) as MethodHandles.Lookup
 		}
-		AlphaOverride.alphaMultipliers.push(1F)
 		moduleManager.initialize()
 		logger.info("Welcome to YolBi4!")
 	}

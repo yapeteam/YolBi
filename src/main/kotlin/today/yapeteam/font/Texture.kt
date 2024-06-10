@@ -8,18 +8,14 @@ import net.minecraft.util.Identifier
  * IntelliJ IDEA
  */
 
-class Texture: Identifier {
-
-    constructor(i: Identifier): super(i.namespace,i.path)
-
-    constructor(path: String) : super(
-        "coffee",
-        if (isValid(path)) path
-        else path
-            .lowercase()
-            .toCharArray()
-            .fold(StringBuilder()) { acc, char -> acc.append(if (isPathCharacterValid(char)) char else "")}
-            .toString())
+class Texture(path: String) : Identifier(
+    "coffee",
+    if (isValid(path)) path
+    else path
+        .lowercase()
+        .toCharArray()
+        .fold(StringBuilder()) { acc, char -> acc.append(if (isPathCharacterValid(char)) char else "") }
+        .toString()) {
 
 
 }

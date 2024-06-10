@@ -13,6 +13,7 @@ import java.io.ByteArrayOutputStream
 import java.util.*
 import javax.imageio.ImageIO
 import kotlin.math.ceil
+import kotlin.math.floor
 
 /**
  * @author yuxiangll
@@ -21,7 +22,7 @@ import kotlin.math.ceil
  */
 class Glyph(val c: Char, val font: Font) {
 
-    val imageTex: Texture = Texture("font/glyphs/" + c.code + "-" + font.getName().lowercase(Locale.getDefault()).hashCode() + Math.floor(Math.random() * 0xFFFF))
+    val imageTex: Texture = Texture("font/glyphs/" + c.code + "-" + font.name.lowercase(Locale.getDefault()).hashCode() + floor(Math.random() * 0xFFFF))
     val offsetX: Int = 5
     val offsetY: Int = 5
     var dimensions: Rectangle2D? = null
@@ -30,7 +31,7 @@ class Glyph(val c: Char, val font: Font) {
         generateTexture()
     }
 
-    fun generateTexture() {
+    private fun generateTexture() {
         val affineTransform = AffineTransform()
         val fontRenderContext = FontRenderContext(affineTransform, true, true)
         val dim: Rectangle2D = font.getStringBounds(c.toString(), fontRenderContext)
@@ -58,7 +59,7 @@ class Glyph(val c: Char, val font: Font) {
         registerBufferedImageTexture(imageTex, bufferedImage)
     }
 
-    fun registerBufferedImageTexture(i: Texture?, bi: BufferedImage?) {
+    private fun registerBufferedImageTexture(i: Texture?, bi: BufferedImage?) {
         try {
             val baos = ByteArrayOutputStream()
             ImageIO.write(bi, "png", baos)
@@ -68,7 +69,7 @@ class Glyph(val c: Char, val font: Font) {
             e.printStackTrace()
         }
     }
-    fun registerTexture(i: Texture?, content: ByteArray) {
+    private fun registerTexture(i: Texture?, content: ByteArray) {
         try {
             val data = BufferUtils.createByteBuffer(content.size).put(content)
             data.flip()
