@@ -12,6 +12,6 @@
     "MixinKeyboard",
     "MixinKeyboardInput",
     "MixinMinecraftClient",
-    "accesors.IShaderProgram"
+    "accessors.IShaderProgram"
   ]
 }

@@ -1,4 +1,4 @@
-package today.yapeteam.mixin.accesors;
+package today.yapeteam.mixin.accessors;
 
 import net.minecraft.client.gl.GlUniform;
 import net.minecraft.client.gl.ShaderProgram;

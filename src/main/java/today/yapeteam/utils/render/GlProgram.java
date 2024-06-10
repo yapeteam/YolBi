@@ -7,7 +7,7 @@ import net.minecraft.client.render.VertexFormat;
 import net.minecraft.resource.ResourceFactory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
-import today.yapeteam.mixin.accesors.IShaderProgram;
+import today.yapeteam.mixin.accessors.IShaderProgram;
 
 import java.io.IOException;
 import java.util.ArrayList;
