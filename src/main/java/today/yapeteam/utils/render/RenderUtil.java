@@ -5,14 +5,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -20,7 +16,6 @@ import java.util.ArrayList;
 
 public class RenderUtil {
 
-    public static GradientGlowShader shader;
 
     public static void renderItem(ItemStack itemStack, float f, float f2, float f3, boolean bl) {
         MatrixStack matrixStack = RenderHelper.getMatrixStack();
@@ -328,35 +323,6 @@ public class RenderUtil {
         matrixStack.pop();
     }
 
-    //I won't fix this kys
-    public static void renderColoredEllipseBorder(float f, float f2, float f3, float f4, Color color, float f5) {
-        double d = Math.PI;
-        MatrixStack matrixStack = RenderHelper.getMatrixStack();
-        matrixStack.push();
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        GL11.glEnable(2848);
-        GL11.glHint(3154, 4354);
-        GL11.glLineWidth(0.1f);
-        RenderSystem.setShader(GameRenderer::getPositionProgram);
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferBuilder = tessellator.getBuffer();
-        bufferBuilder.begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION);
-        RenderSystem.setShaderColor((float)color.getRed() / 255, (float)color.getGreen() / 255, (float)color.getBlue() / 255, (float)color.getAlpha() / 255);
-        for (int i = 0; i < 90; i++) {
-            bufferBuilder.vertex(f + f5 + Math.sin(i * d / 180) * f5 * -1, f2 + f5 + Math.cos(i * d / 180) * f5 * -1, 0).next();
-        }
-        for (int i = 90; i < 180; i++) {
-            bufferBuilder.vertex(f + f5 + Math.sin(i * d / 180) * f5 * -1, f4 - f5 + Math.cos(i * d / 180) * f5 * -1, 0).next();
-        }
-        bufferBuilder.vertex(matrixStack.peek().getPositionMatrix(), f3, f4, 0).next();
-        bufferBuilder.vertex(matrixStack.peek().getPositionMatrix(), f3, f2, 0).next();
-        tessellator.draw();
-        RenderSystem.setShaderColor(1, 1, 1, 1);
-        RenderSystem.disableBlend();
-        matrixStack.pop();
-    }
-
     public static void renderColoredRectangleOutline(float f, float f2, float f3, float f4, Color color) {
         MatrixStack matrixStack = RenderHelper.getMatrixStack();
         matrixStack.push();
@@ -396,22 +362,6 @@ public class RenderUtil {
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.disableBlend();
         matrixStack.pop();
-    }
-
-    public static void renderShaderRect(MatrixStack matrixStack, Color color, Color color2, Color color3, Color color4, float f, float f2, float f3, float f4, float f5, float f6) {
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferBuilder = tessellator.getBuffer();
-        bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
-        bufferBuilder.vertex(matrixStack.peek().getPositionMatrix(), f - 10, f2 - 10, 0).next();
-        bufferBuilder.vertex(matrixStack.peek().getPositionMatrix(), f - 10, f2 + f4 + 20, 0).next();
-        bufferBuilder.vertex(matrixStack.peek().getPositionMatrix(), f + f3 + 20, f2 + f4 + 20, 0).next();
-        bufferBuilder.vertex(matrixStack.peek().getPositionMatrix(), f + f3 + 20, f2 - 10, 0).next();
-        shader.setParameters(f, f2, f3, f4, f5, f6, color, color2, color3, color4);
-        shader.use();
-        tessellator.draw();
-        RenderSystem.disableBlend();
     }
 
     public static void renderRoundedRect(float f, float f2, float f3, float f4, Color color, float f5) {
@@ -548,65 +498,8 @@ public class RenderUtil {
         GL11.glEnable(3089);
     }
 
-    public static void setCameraAction() {
-        Camera camera = MinecraftClient.getInstance().getBlockEntityRenderDispatcher().camera;
-        if (camera != null) {
-            MatrixStack matrixStack = RenderHelper.getMatrixStack();
-            matrixStack.push();
-            Vec3d vec3d = camera.getPos();
-            matrixStack.translate(-vec3d.x, -vec3d.y, -vec3d.z);
-        }
-    }
-
-    public static Color getThemeColor(Color color, int n, int n2) {
-        float[] fArray = new float[3];
-        Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), fArray);
-        float f = Math.abs(((float)(System.currentTimeMillis() % 2000) / 1000 + (float)n / (float)n2 * 2) % 2 - 1);
-        fArray[2] = 0.25f + 0.75f * f % 2;
-        return new Color(Color.HSBtoRGB(fArray[0], fArray[1], fArray[2]));
-    }
-
-    public static Color getColor(int n, float f) {
-        return new Color((float) (14 + n) / 255, (float) (14 + n) / 255, (float) (14 + n) / 255, MathHelper.clamp(f, 0, 1));
-    }
-
-    public static Color getColor(Color color, float f) {
-        return new Color((float)color.getRed() / 255, (float)color.getGreen() / 255, (float)color.getBlue() / 255, MathHelper.clamp(f, 0, 1));
-    }
-
-    public static Color getColor(float f, float f2) {
-        return new Color(f, f, f, MathHelper.clamp(f2, 0, 1));
-    }
-
-    public static Vec3d worldSpaceToScreenSpace(Vec3d pos) {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        Camera camera = mc.getEntityRenderDispatcher().camera;
-        int displayHeight = mc.getWindow().getHeight();
-        int[] viewport = new int[4];
-        GL11.glGetIntegerv(GL11.GL_VIEWPORT, viewport);
-        Vector3f target = new Vector3f();
-
-        double deltaX = pos.x - camera.getPos().x;
-        double deltaY = pos.y - camera.getPos().y;
-        double deltaZ = pos.z - camera.getPos().z;
-
-        Vector4f transformedCoordinates = new Vector4f((float) deltaX, (float) deltaY, (float) deltaZ, 1.f).mul(RenderHelper.getPositionMatrix());
-
-        Matrix4f matrixProj = new Matrix4f(RenderHelper.getProjectionMatrix());
-        Matrix4f matrixModel = new Matrix4f(RenderHelper.getModelViewMatrix());
-
-        matrixProj.mul(matrixModel).project(transformedCoordinates.x(), transformedCoordinates.y(), transformedCoordinates.z(), viewport, target);
-
-        return new Vec3d(target.x / mc.getWindow().getScaleFactor(), (displayHeight - target.y) / mc.getWindow().getScaleFactor(), target.z);
-    }
 
 
-    public static Vec3d getEntityPos(Entity entity) {
-        double d = lerpTickDelta(entity.getX(), entity.prevX);
-        double d2 = lerpTickDelta(entity.getY(), entity.prevY);
-        double d3 = lerpTickDelta(entity.getZ(), entity.prevZ);
-        return new Vec3d(d, d2, d3);
-    }
 
     private static double lerpTickDelta(double d, double d2) {
         return d2 + (d - d2) * MinecraftClient.getInstance().getTickDelta();
