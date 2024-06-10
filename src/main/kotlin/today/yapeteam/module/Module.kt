@@ -8,10 +8,12 @@ import today.yapeteam.utils.IMinecraftClient
  * @since 2024/6/7 上午8:08
  * IntelliJ IDEA
  */
-abstract class Module(val name: String, val category: Category) : IMinecraftClient{
+abstract class Module(val name: String, val category: Category, val key: Bind = Bind(0,BindType.PreClick)) : IMinecraftClient{
 
-    private var enable: Boolean = false
+    var enable: Boolean = false
     var prefix: String = ""
+    var bind: BindSetting = BindSetting(name,"Binding",key)
+
     private val settings: MutableList<Settings<Any>> = mutableListOf()
 
     open fun onEnable() {
@@ -35,6 +37,13 @@ abstract class Module(val name: String, val category: Category) : IMinecraftClie
             disable()
         else
             enable()
+
+    }
+    fun toggle(enable: Boolean) {
+        if(enable)
+            enable()
+        else
+            disable()
 
     }
 
