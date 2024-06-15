@@ -1,13 +1,14 @@
-package today.yapeteam.utils.render;
+package thunder.hack.utility.render.shaders;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.GlUniform;
 import net.minecraft.client.gl.ShaderProgram;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.resource.ResourceFactory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 import today.yapeteam.mixin.accessors.IShaderProgram;
 
 import java.io.IOException;
@@ -16,16 +17,15 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class GlProgram extends Framebuffer {
+public class GlProgram {
     private static final List<Pair<Function<ResourceFactory, ShaderProgram>, Consumer<ShaderProgram>>> REGISTERED_PROGRAMS = new ArrayList<>();
 
     public ShaderProgram backingProgram;
 
     public GlProgram(Identifier id, VertexFormat vertexFormat) {
-        super(true);
         REGISTERED_PROGRAMS.add(new Pair<>(resourceFactory -> {
             try {
-                return new Shader(resourceFactory, id.toString(), vertexFormat);
+                return new THShaderProgram(resourceFactory, id.toString(), vertexFormat);
             } catch (IOException e) {
                 throw new RuntimeException("Failed to initialized shader program", e);
             }
@@ -39,18 +39,20 @@ public class GlProgram extends Framebuffer {
         RenderSystem.setShader(() -> backingProgram);
     }
 
-    protected void setup() {}
+    protected void setup() {
+    }
 
-    protected GlUniform findUniform(String name) {
+    protected @Nullable GlUniform findUniform(String name) {
         return ((IShaderProgram) backingProgram).getUniformsHook().get(name);
     }
 
+    @ApiStatus.Internal
     public static void forEachProgram(Consumer<Pair<Function<ResourceFactory, ShaderProgram>, Consumer<ShaderProgram>>> loader) {
         REGISTERED_PROGRAMS.forEach(loader);
     }
 
-    public static class Shader extends ShaderProgram {
-        private Shader(ResourceFactory factory, String name, VertexFormat format) throws IOException {
+    public static class THShaderProgram extends ShaderProgram {
+        private THShaderProgram(ResourceFactory factory, String name, VertexFormat format) throws IOException {
             super(factory, name, format);
         }
     }

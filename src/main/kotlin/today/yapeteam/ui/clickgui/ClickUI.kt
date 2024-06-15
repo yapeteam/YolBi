@@ -3,6 +3,9 @@ package today.yapeteam.ui.clickgui
 import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.gui.screen.Screen
 import net.minecraft.text.Text
+import thunder.hack.utility.render.Render2DEngine
+import today.yapeteam.YolBi4
+import java.awt.Color
 
 /**
  * @author yuxiangll
@@ -12,6 +15,7 @@ import net.minecraft.text.Text
 object ClickUI : Screen(Text.of("ClickGui")) {
 
     override fun init() {
+        println("INit clickgui")
 
     }
 

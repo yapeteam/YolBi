@@ -1,6 +1,8 @@
 package today.yapeteam.module.imp.render
 
 import meteordevelopment.orbit.EventHandler
+import thunder.hack.utility.render.MSAAFramebuffer
+import thunder.hack.utility.render.Render2DEngine
 import today.yapeteam.YolBi4
 import today.yapeteam.event.EventRender2D
 import today.yapeteam.module.Bind
@@ -16,7 +18,7 @@ import java.awt.Color
  * IntelliJ IDEA
  */
 
-object HUD : Module("HUD",Category.RENDER, Bind(82, BindType.Hold)) {
+object HUD : Module("HUD",Category.RENDER) {
 
     var test: Int = 0
     init {
@@ -39,6 +41,28 @@ object HUD : Module("HUD",Category.RENDER, Bind(82, BindType.Hold)) {
         }
         RenderHelper.setMatrixStack(event.context.matrices)
         RenderHelper.setContext(event.context)
+        val context = event.context
+
+
+        Render2DEngine.drawRoundedBlur(context.matrices,300F,100F,100F,100F,1F,Color(255,255,255),
+            50F,0.3F)
+        //Render2DEngine.drawBlurredShadow(context.matrices,300F,100F,100F,100F, 20,Color(255,255,255,1))
+        Render2DEngine.drawGradientBlurredShadow1(
+            context.matrices,
+            50F,
+            100F,
+            100F,
+            100F,
+            50,
+            Color(100,100,200),
+            Color(163,155,253),
+            Color(200,200,200),
+            Color(200,100,100)
+        )
+
+
+
+
 
     }
 

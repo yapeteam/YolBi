@@ -4,6 +4,7 @@ import meteordevelopment.orbit.EventBus
 import net.fabricmc.api.ModInitializer
 import net.minecraft.client.MinecraftClient
 import org.slf4j.LoggerFactory
+import thunder.hack.utility.render.Render2DEngine
 import today.yapeteam.manager.FontManager
 import today.yapeteam.module.ModuleManager
 import java.lang.invoke.MethodHandles
@@ -30,6 +31,12 @@ object YolBi4 : ModInitializer {
 			) as MethodHandles.Lookup
 		}
 		moduleManager.initialize()
+		Render2DEngine.initShaders()
+
+		//modernUI.
 		logger.info("Welcome to YolBi4!")
+
+
+
 	}
 }

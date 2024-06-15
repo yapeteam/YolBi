@@ -8,10 +8,12 @@
     "defaultRequire": 1
   },
   "client": [
+    "MixinGameRenderer",
     "MixinIngameHud",
     "MixinKeyboard",
     "MixinKeyboardInput",
     "MixinMinecraftClient",
+    "MixinShaderProgram",
     "accessors.IShaderProgram"
   ]
 }

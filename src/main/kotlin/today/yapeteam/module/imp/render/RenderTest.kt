@@ -4,10 +4,6 @@ import meteordevelopment.orbit.EventHandler
 import today.yapeteam.event.EventRender2D
 import today.yapeteam.module.Category
 import today.yapeteam.module.Module
-import today.yapeteam.utils.render.MSAAFramebuffer
-import today.yapeteam.utils.render.RenderHelper
-import today.yapeteam.utils.render.RenderUtil
-import java.awt.Color
 
 /**
  * @author yuxiangll
