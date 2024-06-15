@@ -31,10 +31,10 @@ class ModuleManager {
     @EventHandler
     fun onKeyPress(event: EventKeyPress){
         modules.forEach {
-            if (it.bind.value.key == event.key){
-                if (it.bind.value.type == BindType.PreClick){
+            if ((it.bind.value as Bind).key == event.key){
+                if ((it.bind.value as Bind).type == BindType.PreClick){
                     it.toggle()
-                }else if (it.bind.value.type == BindType.Hold && !it.enable){
+                }else if ((it.bind.value as Bind).type == BindType.Hold && !it.enable){
                     it.toggle(true)
                 }
 
@@ -46,10 +46,10 @@ class ModuleManager {
     @EventHandler
     fun onKeyRelease(event: EventKeyRelease){
         modules.forEach {
-            if (it.bind.value.key == event.key){
-                if (it.bind.value.type == BindType.PostClick){
+            if ((it.bind.value as Bind).key == event.key){
+                if ((it.bind.value as Bind).type == BindType.PostClick){
                     it.toggle()
-                }else if (it.bind.value.type == BindType.Hold && it.enable){
+                }else if ((it.bind.value as Bind).type == BindType.Hold && it.enable){
                     it.toggle(false)
                 }
             }
@@ -60,10 +60,3 @@ class ModuleManager {
 
 }
 
-
-
-fun main(){
-
-
-
-}

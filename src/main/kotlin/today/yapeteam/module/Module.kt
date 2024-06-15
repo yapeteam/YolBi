@@ -14,21 +14,21 @@ abstract class Module(val name: String, val category: Category, val key: Bind = 
     var prefix: String = ""
     var bind: BindSetting = BindSetting(name,"Binding",key)
 
-    private val settings: MutableList<Settings<Any>> = mutableListOf()
+    private val settings: MutableList<Settings> = mutableListOf()
 
-    open fun onEnable() {
+     open fun onEnable(){
 
-    }
+     }
 
     open fun onDisable(){
 
     }
 
-    fun addSetting(setting: Settings<Any>) {
+    fun addSetting(setting: Settings) {
         settings.add(setting)
     }
 
-    fun addSetting(setting: MutableList<Settings<Any>>) {
+    fun addSetting(setting: MutableList<Settings>){
         settings.addAll(setting)
     }
 
@@ -50,11 +50,14 @@ abstract class Module(val name: String, val category: Category, val key: Bind = 
     private fun enable(){
         enable = true
         YolBi4.EVENT_BUG.subscribe(this)
+        onEnable()
     }
 
     private fun disable(){
         enable = false
         YolBi4.EVENT_BUG.unsubscribe(this)
+        onDisable()
+
     }
 
 

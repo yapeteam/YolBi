@@ -25,5 +25,13 @@ object RenderTest : Module("渲染测试", Category.RENDER){
 
     }
 
+    override fun onEnable() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDisable() {
+        TODO("Not yet implemented")
+    }
+
 
 }
