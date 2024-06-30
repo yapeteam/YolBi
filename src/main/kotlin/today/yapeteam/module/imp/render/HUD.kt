@@ -1,9 +1,10 @@
 package today.yapeteam.module.imp.render
 
 import meteordevelopment.orbit.EventHandler
+import org.lwjgl.glfw.GLFW
 import thunder.hack.utility.render.MSAAFramebuffer
 import thunder.hack.utility.render.Render2DEngine
-import today.yapeteam.YolBi4
+import today.yapeteam.YolBi
 import today.yapeteam.event.EventRender2D
 import today.yapeteam.module.Bind
 import today.yapeteam.module.BindType
@@ -18,7 +19,7 @@ import java.awt.Color
  * IntelliJ IDEA
  */
 
-object HUD : Module("HUD",Category.RENDER) {
+object HUD : Module("HUD",Category.RENDER,Bind(GLFW.GLFW_KEY_R)) {
 
     var test: Int = 0
     init {
@@ -34,10 +35,11 @@ object HUD : Module("HUD",Category.RENDER) {
 
     @EventHandler
     fun onRender(event: EventRender2D){
-        val font = YolBi4.fontManager.pingFang16
-        YolBi4.moduleManager.modules.forEachIndexed { index, module ->
-            font.drawString(event.context.matrices, module.name, 2F, test+10F + index * 10, -1)
-            if (module.prefix.isNotEmpty()) font.drawString(event.context.matrices, "[${module.prefix}]", 2F + font.getStringWidth(module.name) + 2, 10F + index * 10, Color(100,100,100).rgb)
+        val font = YolBi.fontManager.pingFang16
+        YolBi.moduleManager.modules.forEachIndexed { index, module ->
+            //font.drawString()
+            font.drawString(event.context.matrices, module.name, 2.0, (test+10 + index * 10).toDouble(),Color(255, 255, 255))
+            if (module.prefix.isNotEmpty()) font.drawString(event.context.matrices, "[${module.prefix}]", (2F + font.getStringWidth(module.name) + 2).toDouble(), (10F + index * 10).toDouble(), Color(100,100,100))
         }
         RenderHelper.setMatrixStack(event.context.matrices)
         RenderHelper.setContext(event.context)

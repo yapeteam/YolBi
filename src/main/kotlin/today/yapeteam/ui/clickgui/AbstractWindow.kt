@@ -2,7 +2,7 @@ package today.yapeteam.ui.clickgui
 
 import net.minecraft.client.gui.DrawContext
 import thunder.hack.utility.render.Render2DEngine
-import today.yapeteam.YolBi4
+import today.yapeteam.YolBi
 import today.yapeteam.utils.animation.Animation
 import today.yapeteam.utils.animation.Easing
 import java.awt.Color
@@ -24,34 +24,36 @@ class AbstractWindow(val name: String, var x: Float = 0f, var y: Float = 0f, var
 
     fun render(context: DrawContext, mouseX: Int, mouseY: Int, delta: Float) {
         if (hoevered) {
-            Render2DEngine.drawGradientBlurredShadow1(
+//            Render2DEngine.drawGradientBlurredShadow1(
+//                context.matrices,
+//                animationX.value.toFloat(),
+//                animationY.value.toFloat(),
+//                width,
+//                height,10,
+//                Color(255,255,255,100),
+//                Color(255,255,255,100),
+//                Color(255,255,255,100),
+//                Color(255,255,255,100)
+//            )
+            Render2DEngine.drawRoundedBlur(
                 context.matrices,
                 animationX.value.toFloat(),
                 animationY.value.toFloat(),
                 width,
-                height,10,
-                Color(255,255,255,100),
-                Color(255,255,255,100),
-                Color(255,255,255,100),
-                Color(255,255,255,100)
-            )
-            Render2DEngine.drawRound(
-                context.matrices,
-                animationX.value.toFloat(),
-                animationY.value.toFloat(),
-                width,
-                height,10F,Color(0,0,0,250)
+                height,10F,Color(55,58,115,255),
+                5f,0.55f
             )
         }else{
-            Render2DEngine.drawRound(
+            Render2DEngine.drawRoundedBlur(
                 context.matrices,
                 animationX.value.toFloat(),
                 animationY.value.toFloat(),
                 width,
-                height,10F,Color(0,0,0,250)
+                height,10F,Color(55,58,115,255),
+                5f,0.2f
             )
         }
-        YolBi4.fontManager.pingFang22.drawCenteredString(
+        YolBi.fontManager.pingFang22.drawCenteredString(
             context.matrices,
             name,
             (animationX.value.toFloat()+width/2).toDouble(),

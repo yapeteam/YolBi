@@ -10,9 +10,9 @@ import today.yapeteam.module.ModuleManager
 import java.lang.invoke.MethodHandles
 import java.lang.reflect.Method
 
-object YolBi4 : ModInitializer {
+object YolBi : ModInitializer {
 
-	val logger = LoggerFactory.getLogger("yolbi4")
+	val logger = LoggerFactory.getLogger("yolbi")
 	//private val version = "4.0.0"
 	val EVENT_BUG = EventBus();
 	val moduleManager = ModuleManager()

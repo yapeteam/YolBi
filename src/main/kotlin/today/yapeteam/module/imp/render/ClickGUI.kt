@@ -14,6 +14,8 @@ import java.awt.event.KeyEvent
 object ClickGUI : Module("ClickGui", Category.RENDER, Bind(GLFW.GLFW_KEY_RIGHT_SHIFT,BindType.PreClick)) {
 
     private val isPause: BooleanSetting = BooleanSetting("Pause", "is pause on ClickGUI opened", false)
+
+
     init {
         this.addSetting(isPause)
     }

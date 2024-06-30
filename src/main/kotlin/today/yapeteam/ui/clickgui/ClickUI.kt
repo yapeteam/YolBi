@@ -76,14 +76,14 @@ object ClickUI : Screen(Text.of("ClickGui")) {
 
     override fun render(context: DrawContext?, mouseX: Int, mouseY: Int, delta: Float) {
         if (context == null) return
-        MSAAFramebuffer.use(true){
-            windowsList.forEach {
-                it.isHoever(mouseX.toFloat(),mouseY.toFloat())
-                it.render(context, mouseX, mouseY, delta)
-                it.animationX.run(it.x.toDouble())
-                it.animationY.run(it.y.toDouble())
-            }
+
+        windowsList.forEach {
+            it.isHoever(mouseX.toFloat(),mouseY.toFloat())
+            it.render(context, mouseX, mouseY, delta)
+            it.animationX.run(it.x.toDouble())
+            it.animationY.run(it.y.toDouble())
         }
+
 //        windowsList.forEach {
 //            it.render(context, mouseX, mouseY, delta)
 //        }

@@ -1,7 +1,7 @@
 package today.yapeteam.module
 
 import meteordevelopment.orbit.EventHandler
-import today.yapeteam.YolBi4
+import today.yapeteam.YolBi
 import today.yapeteam.event.EventKeyHold
 import today.yapeteam.event.EventKeyPress
 import today.yapeteam.event.EventKeyRelease
@@ -21,7 +21,7 @@ class ModuleManager {
 
 
     fun initialize(){
-        YolBi4.EVENT_BUG.subscribe(this)
+        YolBi.EVENT_BUG.subscribe(this)
         modules.add(RenderTest)
         modules.add(HUD)
         modules.add(ClickGUI)

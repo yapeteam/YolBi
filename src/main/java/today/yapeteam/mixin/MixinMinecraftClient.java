@@ -8,8 +8,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import thunder.hack.utility.render.WindowResizeCallback;
-import today.yapeteam.YolBi4;
+import today.yapeteam.YolBi;
 import today.yapeteam.event.EventWindowsResize;
 
 
@@ -28,14 +27,13 @@ abstract public class MixinMinecraftClient {
 
     @Inject(method = "onResolutionChanged", at = @At("TAIL"))
     private void captureResize(CallbackInfo ci) {
-        WindowResizeCallback.EVENT.invoker().onResized((MinecraftClient) (Object) this, this.window);
         EventWindowsResize eventWindowsResize = new EventWindowsResize(window);
-        YolBi4.INSTANCE.getEVENT_BUG().post(eventWindowsResize);
+        YolBi.INSTANCE.getEVENT_BUG().post(eventWindowsResize);
     }
 
     @Inject(method = "onFinishedLoading", at = @At("TAIL"))
     private void loadingFinished(CallbackInfo ci) {
-        YolBi4.INSTANCE.getFontManager().initialize();
+        YolBi.INSTANCE.getFontManager().initialize();
     }
 
 }

@@ -14,6 +14,7 @@
     "MixinKeyboardInput",
     "MixinMinecraftClient",
     "MixinShaderProgram",
+    "accessors.INativeImage",
     "accessors.IShaderProgram"
   ]
 }

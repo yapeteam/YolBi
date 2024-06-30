@@ -1,6 +1,6 @@
 package today.yapeteam.module
 
-import today.yapeteam.YolBi4
+import today.yapeteam.YolBi
 import today.yapeteam.utils.IMinecraftClient
 
 /**
@@ -49,13 +49,13 @@ abstract class Module(val name: String, val category: Category, val key: Bind = 
 
     private fun enable(){
         enable = true
-        YolBi4.EVENT_BUG.subscribe(this)
+        YolBi.EVENT_BUG.subscribe(this)
         onEnable()
     }
 
     private fun disable(){
         enable = false
-        YolBi4.EVENT_BUG.unsubscribe(this)
+        YolBi.EVENT_BUG.unsubscribe(this)
         onDisable()
 
     }

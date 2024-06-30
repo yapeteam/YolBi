@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import today.yapeteam.YolBi4;
+import today.yapeteam.YolBi;
 import today.yapeteam.event.EventKeyHold;
 import today.yapeteam.event.EventKeyPress;
 import today.yapeteam.event.EventKeyRelease;
@@ -35,18 +35,18 @@ abstract public class MixinKeyboard {
         switch (action) {
             case 0 -> {
                 EventKeyRelease eventKeyRelease = new EventKeyRelease(key,scanCode);
-                YolBi4.INSTANCE.getEVENT_BUG().post(eventKeyRelease);
+                YolBi.INSTANCE.getEVENT_BUG().post(eventKeyRelease);
                 if (eventKeyRelease.getCancelled()) ci.cancel();
 
             }
             case 1 ->{
                 EventKeyPress eventKeyPress = new EventKeyPress(key,scanCode);
-                YolBi4.INSTANCE.getEVENT_BUG().post(eventKeyPress);
+                YolBi.INSTANCE.getEVENT_BUG().post(eventKeyPress);
                 if (eventKeyPress.getCancelled()) ci.cancel();
             }
             case 2 ->{
                 EventKeyHold eventKeyHold = new EventKeyHold(key,scanCode);
-                YolBi4.INSTANCE.getEVENT_BUG().post(eventKeyHold);
+                YolBi.INSTANCE.getEVENT_BUG().post(eventKeyHold);
                 if (eventKeyHold.getCancelled()) ci.cancel();
             }
         }

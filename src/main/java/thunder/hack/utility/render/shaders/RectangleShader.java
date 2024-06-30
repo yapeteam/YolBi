@@ -1,36 +1,35 @@
 package thunder.hack.utility.render.shaders;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.Framebuffer;
-import net.minecraft.client.gl.GlUniform;
-import net.minecraft.client.gl.SimpleFramebuffer;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
-import org.lwjgl.opengl.GL30;
-import thunder.hack.utility.render.WindowResizeCallback;
+import org.ladysnake.satin.api.managed.ManagedCoreShader;
+import org.ladysnake.satin.api.managed.ShaderEffectManager;
+import org.ladysnake.satin.api.managed.uniform.Uniform1f;
+import org.ladysnake.satin.api.managed.uniform.Uniform2f;
+import org.ladysnake.satin.api.managed.uniform.Uniform4f;
 
 import java.awt.*;
 
 
-public class RectangleShader extends GlProgram {
+public class RectangleShader {
+    private final MinecraftClient mc = MinecraftClient.getInstance();
 
-    private static final MinecraftClient mc = MinecraftClient.getInstance();
+    private Uniform2f uSize;
+    private Uniform2f uLocation;
+    private Uniform1f radius;
+    private Uniform4f color1;
+    private Uniform4f color2;
+    private Uniform4f color3;
+    private Uniform4f color4;
 
-    private GlUniform uSize;
-    private GlUniform uLocation;
-    private GlUniform radius;
-    private GlUniform color1;
-    private GlUniform color2;
-    private GlUniform color3;
-    private GlUniform color4;
 
-    private Framebuffer input;
+    public static final ManagedCoreShader RECTANGLE_SHADER = ShaderEffectManager.getInstance()
+            .manageCoreShader(Identifier.of("thunderhack", "rectangle"), VertexFormats.POSITION);
 
     public RectangleShader() {
-        super(new Identifier("thunderhack", "rectangle"), VertexFormats.POSITION);
-        WindowResizeCallback.EVENT.register((client, window) -> {
-            if (input != null) input.resize(window.getFramebufferWidth(), window.getFramebufferHeight(), MinecraftClient.IS_SYSTEM_MAC);
-        });
+        setup();
     }
 
 
@@ -45,26 +44,17 @@ public class RectangleShader extends GlProgram {
         color4.set(c4.getRed() / 255f, c4.getGreen() / 255f, c4.getBlue() / 255f, alpha);
     }
 
-    @Override
     public void use() {
-        var buffer = MinecraftClient.getInstance().getFramebuffer();
-        input.beginWrite(false);
-        GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, buffer.fbo);
-        GL30.glBlitFramebuffer(0, 0, buffer.textureWidth, buffer.textureHeight, 0, 0, buffer.textureWidth, buffer.textureHeight, GL30.GL_COLOR_BUFFER_BIT, GL30.GL_LINEAR);
-        buffer.beginWrite(false);
-        super.use();
+        RenderSystem.setShader(RECTANGLE_SHADER::getProgram);
     }
 
-    @Override
     protected void setup() {
-        uSize = findUniform("uSize");
-        uLocation = findUniform("uLocation");
-        radius = findUniform("radius");
-        color1 = findUniform("color1");
-        color2 = findUniform("color2");
-        color3 = findUniform("color3");
-        color4 = findUniform("color4");
-        var window = MinecraftClient.getInstance().getWindow();
-        input = new SimpleFramebuffer(window.getFramebufferWidth(), window.getFramebufferHeight(), false, MinecraftClient.IS_SYSTEM_MAC);
+        uSize = RECTANGLE_SHADER.findUniform2f("uSize");
+        uLocation = RECTANGLE_SHADER.findUniform2f("uLocation");
+        radius = RECTANGLE_SHADER.findUniform1f("radius");
+        color1 = RECTANGLE_SHADER.findUniform4f("color1");
+        color2 = RECTANGLE_SHADER.findUniform4f("color2");
+        color3 = RECTANGLE_SHADER.findUniform4f("color3");
+        color4 = RECTANGLE_SHADER.findUniform4f("color4");
     }
 }
