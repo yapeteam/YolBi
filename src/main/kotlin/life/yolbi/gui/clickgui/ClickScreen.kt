@@ -28,15 +28,15 @@ object ClickScreen : Screen(Text.of("ClickGUI")) {
 
     init {
         windows.add(Windows(Category.COMBAT, 2F,2F,80F,450F))
-        windows.add(Windows(Category.CLIENT,85F,2F,80F,450F))
-        windows.add(Windows(Category.FUN,85F,2F,80F,450F))
-        windows.add(Windows(Category.MISC,85F,2F,80F,450F))
-        windows.add(Windows(Category.MOVEMENT,85F,2F,80F,450F))
-        windows.add(Windows(Category.PLAYER,85F,2F,80F,450F))
-        windows.add(Windows(Category.RENDER,85F,2F,80F,450F))
-        windows.add(Windows(Category.WORLD,85F,2F,80F,450F))
-
-
+        windows.add(Windows(Category.PLAYER,85F+2,2F,80F,450F))
+        windows.add(Windows(Category.RENDER,85*2F+2,2F,80F,450F))
+        windows.add(Windows(Category.MOVEMENT,85*3F+2,2F,80F,450F))
+        windows.add(Windows(Category.EXPLOIT,85*4F+2,2F,80F,450F))
+        windows.add(Windows(Category.WORLD,85*5F+2,2F,80F,450F))
+        windows.add(Windows(Category.FUN,85*6F+2,2F,80F,450F))
+        windows.add(Windows(Category.MISC,85*7F+2,2F,80F,450F))
+        windows.add(Windows(Category.CLIENT,85*8F+2,2F,80F,450F))
+        //CLIENT
         topWindow = windows.first()
     }
 
