@@ -25,24 +25,17 @@ object YolBi4 : ModInitializer {
 
 		logger.info("Welcome to $NAME $VERSION ")
 
-		EventBus.registerLambdaFactory( "life.yolbi"
-		) { lookupInMethod: Method, klass: Class<*>? ->
-			lookupInMethod.invoke(
-				null,
-				klass,
-				MethodHandles.lookup()
-			) as MethodHandles.Lookup
+		EventBus.registerLambdaFactory( "life.yolbi") { lookupInMethod: Method, klass: Class<*> ->
+			lookupInMethod(null, klass, MethodHandles.lookup()) as MethodHandles.Lookup
 		}
-
-		//EventBus.subscribe(this)
 
 
 		logger.info("initializing managers")
+
 		ModuleManager.initialize()
-
 		SurveillanceManager.initialize()
-
 		CommandManager.initialize()
+
 		Render2DEngine.initShaders()
 
 

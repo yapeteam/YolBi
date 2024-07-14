@@ -11,25 +11,25 @@ class TimerUtil {
 
 
     init {
-        reset()
+        time = System.nanoTime()
     }
 
-
-    fun reset(){
+    val reset = {
         time = System.nanoTime()
     }
 
 
-    fun passedS(s: Double): Boolean {
-        return getMs(System.nanoTime() - time) >= (s * 1000.0).toLong()
+    val passed: (Number)-> Boolean = {
+        when (it){
+            is Long -> System.nanoTime() ms time >= it
+            is Double -> System.nanoTime() ms time>= it* 1000
+            else -> false
+        }
     }
 
-    fun passedMs(ms: Long): Boolean {
-        return getMs(System.nanoTime() - time) >= ms
-    }
 
     fun every(ms: Long): Boolean {
-        val passed = getMs(System.nanoTime() - time) >= ms
+        val passed = System.nanoTime() ms time >= ms
         if (passed) reset()
         return passed
     }
@@ -38,14 +38,17 @@ class TimerUtil {
         this.time = System.nanoTime() - ms * 1000000L
     }
 
-    fun getPassedTimeMs(): Long {
-        return getMs(System.nanoTime() - time)
+
+    val getPassedTimeMs = {
+        System.nanoTime() ms time
     }
 
-    private fun getMs(time: Long): Long {
-        return time / 1000000L
-    }
 
+
+
+    private infix fun Long.ms(ms: Long): Long {
+        return  (this - ms) / 1000000L
+    }
 
 
 

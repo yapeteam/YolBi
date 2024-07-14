@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * @author yuxiangll
@@ -52,7 +53,10 @@ public abstract class MixinPlayerEntity extends LivingEntity implements IMinecra
             ci.cancel();
         }
     }
-
+    @Inject(method = "getBlockInteractionRange", at = @At("HEAD"), cancellable = true)
+    public void getBlockInteractionRangeHook(CallbackInfoReturnable<Double> cir) {
+        cir.setReturnValue((double) 20);
+    }
 
 
 

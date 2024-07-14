@@ -13,6 +13,8 @@ import life.yolbi.module.imp.render.*
 
 @Suppress("MemberVisibilityCanBePrivate")
 object ModuleManager {
+
+
     val modules = mutableListOf<Module>()
 
 

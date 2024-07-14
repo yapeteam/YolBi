@@ -15,10 +15,6 @@ abstract class Command(val name: String, val description: String): IMinecraft{
     }
 
 
-
-
-
-
     abstract fun initializeCommand()
 
 

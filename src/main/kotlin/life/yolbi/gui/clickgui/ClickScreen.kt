@@ -83,7 +83,7 @@ object ClickScreen : Screen(Text.of("ClickGUI")) {
         context.matrices.pop()
 
 
-        if (desValue == 0.0 && timer.passedMs(200)){
+        if (desValue == 0.0 && timer.passed(200L)){
             onClose()
         }
 
@@ -102,27 +102,24 @@ object ClickScreen : Screen(Text.of("ClickGUI")) {
     }
 
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
-
         run breaking@{
             windows.forEach {
                 if (it.isHowever(mouseX,mouseY) && it != topWindow){
                     topWindow = it
                     return@breaking
                 }
-
-
             }
         }
-        if (windows.last() != topWindow){
-            windows.remove(topWindow)
-            windows.addLast(topWindow)
-        }
-
-
-
+        windows.last topped topWindow
         return true
     }
 
 
+    private infix fun AbstractButton.topped(other: AbstractButton) {
+        if (this != other){
+            windows.remove(other)
+            windows.addLast(other)
+        }
+    }
 
 }
