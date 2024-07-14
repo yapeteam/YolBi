@@ -23,7 +23,7 @@ object Trigger : Module("Trigger",Category.COMBAT) {
 
 
         if ( mc.crosshairTarget == null) return
-        if (mc.player?.getAttackCooldownProgress(0.6f)!! < 1f) return
+        if (mc.player?.getAttackCooldownProgress(0.5f)!! < 1f) return
         val ent = mc.crosshairTarget
         when (ent){
             is EntityHitResult -> {
