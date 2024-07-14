@@ -8,5 +8,5 @@ import life.yolbi.module.Module
  * @since 2024/7/14 上午8:50
  * IntelliJ IDEA
  */
-object TESTTT: Module("TETE", Category.COMBAT) {
+object TESTTT: Module("TEST", Category.COMBAT) {
 }

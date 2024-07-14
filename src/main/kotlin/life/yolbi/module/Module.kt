@@ -22,8 +22,8 @@ abstract class Module(
     var enable: Boolean = false
     var prefix: String = ""
     var bind: BindSetting = BindSetting(name,"Binding",key)
-
-    private val settings: MutableList<Settings> = mutableListOf()
+    var unfold: Boolean = false
+    val settings: MutableList<Settings> = mutableListOf()
 
     open fun onEnable(){
 

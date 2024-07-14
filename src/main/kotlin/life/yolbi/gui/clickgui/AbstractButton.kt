@@ -24,7 +24,7 @@ abstract class AbstractButton(
 
     abstract fun isHowever(mouseX: Double, mouseY: Double) : Boolean
 
-    fun mouseClicked(mouseX: Int, mouseY: Int, button: Int){}
+    abstract fun mouseClicked(mouseX: Int, mouseY: Int, button: Int)
 
     fun mouseReleased(mouseX: Int, mouseY: Int, button: Int){}
 

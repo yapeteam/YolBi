@@ -21,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(MinecraftClient.class)
 public abstract class MixinMinecraftClient implements IMinecraftClient {
 
+
     @Inject(method = "tick", at = @At("HEAD"))
     public void onTick(CallbackInfo ci){
         //if (mc.player == null) return;
@@ -29,7 +30,7 @@ public abstract class MixinMinecraftClient implements IMinecraftClient {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     void postWindowInit(RunArgs args, CallbackInfo ci) {
-        //todo
+
     }
 
     @Inject(method = "onFinishedLoading", at = @At("TAIL"))

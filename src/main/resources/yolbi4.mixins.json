@@ -18,6 +18,7 @@
     "MixinKeyBoard",
     "MixinMinecraftClient",
     "MixinMouse",
-    "accessors.INativeImage",
+    "accessors.IMinecraftClient",
+    "accessors.INativeImage"
   ]
 }

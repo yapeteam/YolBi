@@ -4,6 +4,7 @@ import life.yolbi.YolBi4;
 import life.yolbi.events.EventPlayerJump;
 import life.yolbi.events.EventPlayerTravel;
 import life.yolbi.events.EventPostAttack;
+import life.yolbi.module.imp.combat.Reach;
 import life.yolbi.util.IMinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -53,10 +54,22 @@ public abstract class MixinPlayerEntity extends LivingEntity implements IMinecra
             ci.cancel();
         }
     }
+
     @Inject(method = "getBlockInteractionRange", at = @At("HEAD"), cancellable = true)
     public void getBlockInteractionRangeHook(CallbackInfoReturnable<Double> cir) {
-        cir.setReturnValue((double) 20);
+        if (Reach.INSTANCE.getEnable()){
+            cir.setReturnValue((Double) Reach.INSTANCE.getBlockRange().getValue());
+        }
     }
+
+    @Inject(method = "getEntityInteractionRange", at = @At("HEAD"), cancellable = true)
+    public void getEntityInteractionRangeHook(CallbackInfoReturnable<Double> cir) {
+        if (Reach.INSTANCE.getEnable()) {
+            cir.setReturnValue((double) Reach.INSTANCE.getAttackRange().getValue());
+        }
+    }
+
+
 
 
 

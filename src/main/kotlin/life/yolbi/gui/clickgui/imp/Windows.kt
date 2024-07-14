@@ -1,5 +1,6 @@
 package life.yolbi.gui.clickgui.imp
 
+import com.mojang.blaze3d.systems.RenderSystem
 import life.yolbi.gui.clickgui.AbstractButton
 import life.yolbi.managers.FontManager
 import life.yolbi.managers.ModuleManager
@@ -7,9 +8,11 @@ import life.yolbi.module.Category
 import life.yolbi.module.Module
 import life.yolbi.util.animation.Animation
 import life.yolbi.util.animation.Easing
-import life.yolbi.util.render.MSAAFramebuffer
+import life.yolbi.util.math.ColorUtility
 import life.yolbi.util.render.Render2DEngine
 import net.minecraft.client.gui.DrawContext
+import net.minecraft.util.Identifier
+import org.joml.Quaternionf
 import java.awt.Color
 
 /**
@@ -24,6 +27,11 @@ class Windows(
     private val width: Float,
     private var height: Float,
 ): AbstractButton(name,xPos,yPos, width, height) {
+
+
+    //val arrowPic = Identifier.of("yolbi4","texture/clickgui/arrow.png")
+    var themeColor = Color(156,121,232)
+
     val animation: Animation = Animation(Easing.EASE_OUT_CIRC,500)
     val modules = ArrayList<Module>()
     init {
@@ -54,13 +62,50 @@ class Windows(
                 Render2DEngine.drawRoundedBlur(context.matrices,xPos+2,yPos+20+index*18,width-4,15F,3F, Color(100,100,100),10F,0.7F)
             }
 
+            if (module.enable){
+                Render2DEngine.drawRoundedBlur(context.matrices,xPos+2,yPos+20+index*18,width-4,15F,3F, themeColor,0F,0.6F)
 
-            //Render2DEngine.drawRoundedBlur(context.matrices,xPos+2,yPos+20+index*18,width-4,15F,3F, Color(100,100,100),10F,0.7F)
-            FontManager.pingFang16.drawString(context.matrices,module.name,(xPos+4).toDouble(),(yPos+20+5+index*18).toDouble(),Color(200,200,200))
+            }
+
+            //RenderSystem.setShaderTexture(0,arrowPic)
+            //Render2DEngine.renderTexture(context.matrices,xPos+60.0,yPos+23+index*18.0,30.0,30.0,0F,0F,50.0,50.0,50.0,50.0)
+            if (module.unfold){
+
+                //Render2DEngine.drawDefaultArrow(context.matrices,xPos+2,yPos+20+index*18,1F,1F,1F,false,false,Color(255,255,255).rgb)
+            }
+
+
+            FontManager.pingFang16.drawString(context.matrices,module.name,(xPos+4).toDouble(),(yPos+20+5+index*18).toDouble(),Color(250,250,250))
         }
 
 
     }
+
+
+    override fun mouseClicked(mouseX: Int, mouseY: Int, button: Int) {
+
+        modules.forEachIndexed { index, module ->
+            if (mouseX.toFloat() in xPos + 2..xPos + width - 4 && mouseY.toFloat() in yPos + 20 + index * 18..yPos + 20 + index * 18 + 15) {
+                when(button){
+                    0->{
+                        module.toggle()
+                    }1->{
+                        module.unfold = !module.unfold
+                    }2->{
+
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+    }
+
 
     override fun mouseDragged(mouseX: Double, mouseY: Double, button: Int, deltaX: Double, deltaY: Double) {
 

@@ -111,6 +111,11 @@ object ClickScreen : Screen(Text.of("ClickGUI")) {
             }
         }
         windows.last topped topWindow
+
+
+        windows.forEach{ it.mouseClicked(mouseX.toInt(), mouseY.toInt(),button) }
+
+
         return true
     }
 
