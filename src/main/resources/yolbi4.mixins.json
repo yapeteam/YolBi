@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "package": "life.yolbi.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "MixinClientConnection",
+    "MixinPlayerEntity"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "MixinClientPlayerEntity",
+    "MixinClientPlayerInteractionManager",
+    "MixinEntityRenderer",
+    "MixinGameRenderer",
+    "MixinIngameHud",
+    "MixinKeyBoard",
+    "MixinMinecraftClient",
+    "MixinMouse",
+    "accessors.INativeImage",
+  ]
+}
