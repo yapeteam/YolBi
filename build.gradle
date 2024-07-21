@@ -23,6 +23,10 @@ repositories {
 		url = "https://maven.meteordev.org/releases"
 	}
 
+	maven {
+		url "https://packages.jetbrains.team/maven/p/skija/maven"
+	}
+
 	repositories {
 		maven {
 			name = 'Ladysnake Mods'
@@ -50,6 +54,7 @@ dependencies {
 
 	implementation("meteordevelopment:orbit:${project.orbit_version}")
 	modImplementation("org.ladysnake:satin:${project.satin_version}")
+	implementation("io.github.humbleui:${"skija-macos-arm64"}:${"0.116.2"}")
 
 }
 
@@ -82,6 +87,8 @@ java {
 }
 
 jar {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
 	from("LICENSE") {
 		rename { "${it}_${project.base.archivesName.get()}"}
 	}

@@ -4,7 +4,6 @@ import life.yolbi.gui.clickgui.ClickScreen
 import life.yolbi.module.Bind
 import life.yolbi.module.Category
 import life.yolbi.module.Module
-import net.minecraft.text.Text
 import org.lwjgl.glfw.GLFW
 
 /**

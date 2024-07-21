@@ -10,14 +10,19 @@
     "defaultRequire": 1
   },
   "client": [
+    "MixinBipedEntityModel",
     "MixinClientPlayerEntity",
     "MixinClientPlayerInteractionManager",
     "MixinEntityRenderer",
     "MixinGameRenderer",
+    "MixingDefaultClientResourcePackProvider",
+    "MixinHeldItemRenderer",
     "MixinIngameHud",
     "MixinKeyBoard",
     "MixinMinecraftClient",
     "MixinMouse",
+    "MixinPlayerEntityRenderer",
+    "MixinSplashOverlay",
     "accessors.IMinecraftClient",
     "accessors.INativeImage"
   ]

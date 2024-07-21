@@ -1,8 +1,13 @@
 package life.yolbi.gui.clickgui
 
+import io.github.humbleui.skija.DirectContext
+import io.github.humbleui.skija.Paint
+import io.github.humbleui.skija.Surface
+import life.yolbi.YolBi4
 import life.yolbi.gui.clickgui.imp.Windows
 import life.yolbi.module.Category
 import life.yolbi.module.imp.render.ClickGui
+import life.yolbi.util.IMinecraft
 import life.yolbi.util.animation.Animation
 import life.yolbi.util.animation.Easing
 import life.yolbi.util.client.TimerUtil
@@ -10,13 +15,15 @@ import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.gui.screen.Screen
 import net.minecraft.text.Text
 import org.lwjgl.glfw.GLFW
+import java.awt.Color
+
 
 /**
  * @author yuxiangll
  * @since 2024/7/8 下午12:48
  * IntelliJ IDEA
  */
-object ClickScreen : Screen(Text.of("ClickGUI")) {
+object ClickScreen : Screen(Text.of("ClickGUI")),IMinecraft {
 
     private val windows = ArrayList<AbstractButton>()
     private var topWindow: AbstractButton
@@ -91,9 +98,15 @@ object ClickScreen : Screen(Text.of("ClickGUI")) {
 
 
     override fun mouseDragged(mouseX: Double, mouseY: Double, button: Int, deltaX: Double, deltaY: Double): Boolean {
-        if (topWindow.isHowever(mouseX, mouseY)) {
-            topWindow.mouseDragged(mouseX,mouseY,button,deltaX,deltaY)
+        when (button){
+            0 ->{
+                if (topWindow.isHowever(mouseX, mouseY)) {
+                    topWindow.mouseDragged(mouseX,mouseY,button,deltaX,deltaY)
+                }
+            }
+
         }
+
 
 
 

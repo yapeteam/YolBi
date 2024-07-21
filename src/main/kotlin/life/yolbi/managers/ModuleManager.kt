@@ -3,6 +3,7 @@ package life.yolbi.managers
 import life.yolbi.YolBi4
 import life.yolbi.module.Module
 import life.yolbi.module.imp.combat.*
+import life.yolbi.module.imp.player.*
 import life.yolbi.module.imp.render.*
 import life.yolbi.module.imp.world.*
 
@@ -27,6 +28,8 @@ object ModuleManager {
         modules.add(Reach)
         modules.add(Trigger)
         modules.add(FastPlace)
+        modules.add(SwardBlock)
+        modules.add(NoBreakCooldown)
         YolBi4.EventBus.subscribe(this)
     }
 

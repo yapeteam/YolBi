@@ -3,13 +3,16 @@ package life.yolbi.mixin;
 import life.yolbi.YolBi4;
 import life.yolbi.events.EventAttackBlock;
 import life.yolbi.events.EventBreakBlock;
+import life.yolbi.module.imp.player.NoBreakCooldown;
 import life.yolbi.util.IMinecraftClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
@@ -19,6 +22,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  */
 @Mixin(ClientPlayerInteractionManager.class)
 abstract public class MixinClientPlayerInteractionManager implements IMinecraftClient {
+
+
+    @ModifyConstant(method = "updateBlockBreakingProgress",constant = @Constant(intValue = 5))
+    private int MiningCooldownFix(int value){
+        if (NoBreakCooldown.INSTANCE.getEnable())
+            return 0;
+        else
+            return value;
+    }
+
+
 
 
     @Inject(method = "attackBlock", at = @At("HEAD"), cancellable = true)

@@ -26,4 +26,9 @@ public abstract class MixinEntityRenderer<T extends Entity> {
         if (eventRenderEntityName.isCancelled()) ci.cancel();
     }
 
+
+
+
+
+
 }
